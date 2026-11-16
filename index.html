@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Social Hub · OAuth</title>
+  <style>
+    body { font-family: system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; background: #f4f3f0; color: #0b0b0b; }
+    @media (prefers-color-scheme: dark) { body { background: #121211; color: #f0efec; } }
+    p { max-width: 420px; text-align: center; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <p id="msg">Volviendo a Social Hub…</p>
+  <script>
+    // Página de reenvío para el login OAuth de TikTok (que no admite redirect URIs a localhost).
+    // Pasa los parámetros de vuelta (code, state, error...) tal cual a la app local.
+    // El code no sirve sin el client secret y el verificador PKCE, que solo conoce el backend local.
+    var TARGET = 'http://localhost:5173/accounts';
+    var query = window.location.search || '';
+    if (query.length > 1) {
+      window.location.replace(TARGET + query);
+    } else {
+      document.getElementById('msg').textContent = 'Página de reenvío de Social Hub. No hay nada que hacer aquí.';
+    }
+  </script>
+</body>
+</html>
